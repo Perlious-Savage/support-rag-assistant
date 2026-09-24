@@ -90,3 +90,25 @@ def test_api_ask_endpoint():
     body = r.json()
     assert body["supported"] is False and body["citations"] == [] and body["sources"]
     assert client.post("/ask", json={"question": "   "}).status_code == 422
+
+
+def test_api_llm_config_choice():
+    import llm
+    from fastapi.testclient import TestClient
+    from server import app
+    client = TestClient(app)
+    try:
+        status = client.get("/config").json()
+        assert "active" in status and "env" in status
+        assert "api_key" not in str(status)  # keys are never returned
+        # a local LLM that isn't running is rejected with install instructions
+        r = client.post("/config", json={"mode": "local", "base_url": "http://127.0.0.1:9/v1", "model": "qwen2.5:1.5b"})
+        assert r.status_code == 400 and "ollama" in r.json()["detail"].lower()
+        # an API choice without a key is rejected
+        assert client.post("/config", json={"mode": "api", "base_url": "https://x/v1", "model": "m"}).status_code == 422
+        # "no LLM" switches answering to extractive
+        assert client.post("/config", json={"mode": "none"}).json()["active"] == []
+        body = client.post("/ask", json={"question": "How long does a SEPA withdrawal take?"}).json()
+        assert body["mode"] == "extractive" and body["supported"] and body["citations"] == ["withdrawals.md"]
+    finally:
+        llm.set_override(None)

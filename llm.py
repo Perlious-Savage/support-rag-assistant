@@ -24,10 +24,50 @@ MODELS_USED: set[str] = set()
 
 
 TIERS = ("LLM", "FALLBACK", "LOCAL")  # primary -> fallback -> local (e.g. Ollama)
+# Backend chosen at runtime in the web UI. None = use .env tiers; [] = no LLM (extractive only).
+# ponytail: one process-wide choice (fine for a local single-user tool); per-session config if it's ever shared
+_override: list[dict] | None = None
+
+
+def make_target(provider: str, base_url: str | None, model: str, api_key: str | None = None) -> dict:
+    """Build an endpoint from UI input. provider='local' needs no key (Ollama/LM Studio ignore it)."""
+    local = provider == "local"
+    return {"provider": provider, "base_url": base_url or None, "api_key": api_key or "local", "model": model,
+            "tier": "user", "fallback": False, "timeout": 180 if local else 60}
+
+
+def set_override(targets: list[dict] | None) -> None:
+    """Use exactly these endpoints instead of .env ([] = no LLM); None restores the .env config."""
+    global _override
+    _override = targets
+
+
+def ping(target: dict) -> str | None:
+    """Send a tiny prompt to one endpoint; return None if it answers, else a short error message."""
+    from openai import OpenAI
+    try:
+        client = OpenAI(api_key=target["api_key"], base_url=target["base_url"], timeout=target["timeout"], max_retries=0)
+        client.chat.completions.create(model=target["model"], max_tokens=5,
+                                       messages=[{"role": "user", "content": "Reply with: OK"}])
+        return None
+    except Exception as e:  # never echo the key back, even if the provider's error message contains it
+        return f"{type(e).__name__}: {str(e).replace(target['api_key'], '***')[:300]}"
+
+
+def status() -> dict:
+    """Describe the active and .env-configured endpoints (never includes keys)."""
+    describe = lambda ts: [{k: t[k] for k in ("tier", "provider", "model", "base_url")} for t in ts]
+    return {"source": "env" if _override is None else "ui", "active": describe(_targets()),
+            "env": describe(_env_targets())}
 
 
 def _targets() -> list[dict]:
-    """Return configured endpoints in priority order (primary, fallback, local).
+    """Endpoints to try in order: the UI override if one is set, else the .env tiers."""
+    return _env_targets() if _override is None else _override
+
+
+def _env_targets() -> list[dict]:
+    """Return .env-configured endpoints in priority order (primary, fallback, local).
 
     LOCAL_* is any OpenAI-compatible local server (Ollama, LM Studio, llama.cpp) and needs no API key.
     """
@@ -68,7 +108,8 @@ def complete(prompt: str, *, stage: str, item_id: str | None, input_artifacts: l
     log = {"stage": stage, "question_id": item_id, "prompt_hash": prompt_hash,
            "input_artifacts": input_artifacts, "output_artifact": output_artifact}
 
-    if cache_file.exists():
+    use_cache = _override is None  # cache is keyed by prompt only, so it is valid only for the .env models
+    if use_cache and cache_file.exists():
         cached = json.loads(cache_file.read_text(encoding="utf-8"))
         MODELS_USED.add(cached["model"])
         append_jsonl(CALL_LOG, {**log, "timestamp": utc_now(), "provider": cached["provider"],
@@ -88,15 +129,18 @@ def complete(prompt: str, *, stage: str, item_id: str | None, input_artifacts: l
                 text = resp.choices[0].message.content or ""
             except Exception as e:  # network / API errors: retry retryable ones, else next target
                 last_error = e
-                status = getattr(e, "status_code", None)
-                daily_quota_gone = status == 429 and "PerDay" in str(e)  # retrying won't help today
-                if (status in RETRYABLE or status is None) and not daily_quota_gone and attempt <= len(BACKOFF_SECONDS):
+                code = getattr(e, "status_code", None)
+                daily_quota_gone = code == 429 and "PerDay" in str(e)  # retrying won't help today
+                # no HTTP status = network error: worth retrying for a cloud API, not for a local server that's down
+                transient = code in RETRYABLE or (code is None and target["provider"] != "local")
+                if transient and not daily_quota_gone and attempt <= len(BACKOFF_SECONDS):
                     time.sleep(BACKOFF_SECONDS[attempt - 1])
                     continue
                 break
-            CACHE_DIR.mkdir(exist_ok=True)
-            cache_file.write_text(json.dumps({"provider": target["provider"], "model": target["model"],
-                                              "fallback": target["fallback"], "text": text}), encoding="utf-8")
+            if use_cache:
+                CACHE_DIR.mkdir(exist_ok=True)
+                cache_file.write_text(json.dumps({"provider": target["provider"], "model": target["model"],
+                                                  "fallback": target["fallback"], "text": text}), encoding="utf-8")
             MODELS_USED.add(target["model"])
             append_jsonl(CALL_LOG, {**log, "timestamp": utc_now(), "provider": target["provider"],
                                     "model": target["model"], "attempts": attempt,

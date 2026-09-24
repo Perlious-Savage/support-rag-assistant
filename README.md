@@ -13,8 +13,14 @@ python server.py            # or: make serve  -> web UI + API at http://127.0.0.
 
 ## Interfaces
 Both return `answer`, `citations`, `supported` and `sources` (retrieved `doc_id`/`chunk_id`/`score`), plus the support-check `validation` result.
-- **Web UI:** open http://127.0.0.1:8000, type a question, and click Ask. Tick "Extractive mode" to skip the LLM.
-- **HTTP API:** `POST /ask` with `{"question": "...", "top_k": 4, "extractive": false}`. Interactive docs are at http://127.0.0.1:8000/docs.
+- **Web UI:** open http://127.0.0.1:8000. **When the page opens, it asks how answers should be generated:**
+  - **Server API key (.env):** the Gemini primary → fallback models configured in `.env`
+  - **Enter an API key:** any OpenAI-compatible provider (base URL + model + key). The key is kept in server memory only; it's never saved, logged or returned.
+  - **Local LLM (Ollama / LM Studio):** e.g. `http://localhost:11434/v1` + `qwen2.5:1.5b`. No key needed, and nothing leaves the machine.
+  - **No LLM:** extractive answers only (offline).
+
+  The server sends a test prompt to the chosen backend before accepting it. If a local LLM isn't reachable, the page shows install steps (`ollama pull qwen2.5:1.5b`). "Change" reopens the choice at any time. Each answer shows which mode produced it (`llm`, `extractive`, `extractive_fallback`, `threshold`).
+- **HTTP API:** `GET /config` shows the active backend (never keys); `POST /config` with `{"mode": "env"|"api"|"local"|"none", "base_url", "model", "api_key"}` switches it; `POST /ask` with `{"question": "...", "top_k": 4, "extractive": false}`. Interactive docs are at http://127.0.0.1:8000/docs.
   ```bash
   curl -X POST http://127.0.0.1:8000/ask -H "Content-Type: application/json" -d '{"question":"How long do card refunds take?"}'
   ```
@@ -78,10 +84,14 @@ Off-topic questions are the most common way a RAG bot makes things up: the retri
 - LLM mode: 10/10 support checks passed; 9/10 match the expected behaviour.
 - The one mismatch is q9 ("exact Enterprise limits"). The model gave the grounded partial answer "custom limits agreed in the contract", which is supported by the doc, but the expected behaviour was a refusal.
 
+## LLM backends and failover
+`llm.py` tries the `.env` tiers in order: primary → fallback → optional `LOCAL_BASE_URL`/`LOCAL_MODEL` (Ollama, LM Studio, llama.cpp, no key). It retries 429/5xx with backoff (2/4/8/16 s) but skips retries once a *daily* quota is exhausted. If every tier fails, the answer falls back to extractive (`mode: extractive_fallback`) instead of an error. A backend chosen in the web UI replaces the `.env` tiers for that server process.
+
 ## Limitations and tradeoffs
 - **Extractive fallback is crude.** It picks the sentence with the most question-word overlap, with no stemming. It refuses when overlap is weak (safe), but it can also "answer" with a sentence that only mentions the topic. Use LLM mode for real answers.
 - **The evidence check proves the quotes exist, not that they imply the answer.** A model could quote real text and still draw a wrong conclusion from it. This check catches invented quotes and citations, not bad reasoning.
 - **MIN_SCORE is calibrated on this corpus.** A different embedding model or corpus needs a new threshold. It can be set with the `MIN_SCORE` environment variable.
+- **The LLM choice in the web UI is one per server process**, not per browser. That's fine for a local single-user tool. It also isn't cached, because the response cache is keyed by prompt only.
 - **The server caches the index at startup**, so restart it after editing `docs/`.
 - **The index is in memory and rebuilt every run.** That's fine for tens of docs. For thousands, persist the vectors (e.g. FAISS) and add BM25 for exact-term queries such as error codes.
 - **The partly-answerable policy is binary.** The prompt forbids partial answers, but the model may still answer the documented part of a question (see q9).
