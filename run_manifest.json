@@ -1,0 +1,59 @@
+{
+  "started_at": "2026-09-24T07:04:02.381594+00:00",
+  "stages": [
+    {
+      "stage": "load_documents",
+      "started_at": "2026-09-24T07:04:02.381654+00:00",
+      "ended_at": "2026-09-24T07:04:02.385290+00:00"
+    },
+    {
+      "stage": "chunk",
+      "started_at": "2026-09-24T07:04:02.385317+00:00",
+      "ended_at": "2026-09-24T07:04:02.385871+00:00"
+    },
+    {
+      "stage": "index",
+      "started_at": "2026-09-24T07:04:02.385892+00:00",
+      "ended_at": "2026-09-24T07:04:03.462731+00:00"
+    },
+    {
+      "stage": "retrieve",
+      "started_at": "2026-09-24T07:04:03.462771+00:00",
+      "ended_at": "2026-09-24T07:04:03.510893+00:00"
+    },
+    {
+      "stage": "generate",
+      "started_at": "2026-09-24T07:04:03.510945+00:00",
+      "ended_at": "2026-09-24T07:10:38.218682+00:00"
+    },
+    {
+      "stage": "validate",
+      "started_at": "2026-09-24T07:10:38.218771+00:00",
+      "ended_at": "2026-09-24T07:10:38.250372+00:00"
+    }
+  ],
+  "inputs": {
+    "docs/api_rate_limits.md": "0929a8f9f78236a6059c2c15ca11900a7c5fb893ea17598189aa53bb72b39550",
+    "docs/auth_policy.md": "f3ec9be5db57b0a3abcd84951d87ba0518cd2f070d794e913f1a06fc8938d5df",
+    "docs/incident_escalation.md": "4e12a512a8d2e7635a2f391ee2eb00f6e9a2a0a9d7f9a6fca3c1984e9162ce3b",
+    "docs/kyc_verification.md": "7919bfe8037038ee9a544c03850d5bde461a806f6b90c90f3b61c5608ad26d28",
+    "docs/withdrawals.md": "072b91750344f881f11dd03ef297c88abe05883571db1823f560146407eb310b",
+    "questions.json": "2f234b06d62e450aa63799d8eeb9a3ee31a1c7c7aa94ded68908a3df83e1137b",
+    "prompts/answer.txt": "c5870645bc5b5bc1c52370cf8af51da62de2ddcfc0b8fad34d7e1a389aad5d30"
+  },
+  "mode": "llm",
+  "config": {
+    "top_k": 4,
+    "min_score": 0.6
+  },
+  "ended_at": "2026-09-24T07:10:38.250429+00:00",
+  "models": {
+    "embedding": "BAAI/bge-small-en-v1.5",
+    "primary": "gemini/gemini-3.6-flash",
+    "fallback": "gemini/gemini-3.7-flash",
+    "llm_models_used": [
+      "gemini-3.6-flash",
+      "gemini-3.7-flash"
+    ]
+  }
+}

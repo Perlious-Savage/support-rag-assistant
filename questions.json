@@ -1,0 +1,12 @@
+[
+  {"id": "q1", "question": "How many password reset attempts are allowed per hour?", "expected_behavior": "answerable"},
+  {"id": "q2", "question": "Can support manually bypass identity verification for VIP users?", "expected_behavior": "unanswerable"},
+  {"id": "q3", "question": "What happens when a client exceeds the API rate limit?", "expected_behavior": "answerable"},
+  {"id": "q4", "question": "Which documents are accepted for KYC verification?", "expected_behavior": "answerable"},
+  {"id": "q5", "question": "How long does a SEPA withdrawal take?", "expected_behavior": "answerable"},
+  {"id": "q6", "question": "How quickly must the status page be updated during a SEV1 incident?", "expected_behavior": "answerable"},
+  {"id": "q7", "question": "How long is an account locked after too many failed logins?", "expected_behavior": "answerable"},
+  {"id": "q8", "question": "What fee is charged for withdrawals in cryptocurrency?", "expected_behavior": "unanswerable"},
+  {"id": "q9", "question": "What are the exact rate limits for Enterprise tier API keys?", "expected_behavior": "unanswerable"},
+  {"id": "q10", "question": "What is the company's parental leave policy?", "expected_behavior": "unanswerable"}
+]

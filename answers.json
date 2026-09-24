@@ -1,0 +1,223 @@
+[
+  {
+    "question_id": "q1",
+    "question": "How many password reset attempts are allowed per hour?",
+    "answer": "Users can request up to 3 password reset emails per hour.",
+    "citations": [
+      "auth_policy.md"
+    ],
+    "supported": true,
+    "evidence": [
+      "Users can request up to 3 password reset emails per hour."
+    ],
+    "reason": null,
+    "retrieved_doc_ids": [
+      "auth_policy.md",
+      "kyc_verification.md"
+    ],
+    "retrieved_chunk_ids": [
+      "auth_policy_2",
+      "auth_policy_1",
+      "auth_policy_3",
+      "kyc_verification_3"
+    ]
+  },
+  {
+    "question_id": "q2",
+    "question": "Can support manually bypass identity verification for VIP users?",
+    "answer": "I can't answer that from the available documentation.",
+    "citations": [],
+    "supported": false,
+    "evidence": [],
+    "reason": "model_marked_unsupported",
+    "retrieved_doc_ids": [
+      "auth_policy.md",
+      "kyc_verification.md"
+    ],
+    "retrieved_chunk_ids": [
+      "auth_policy_0",
+      "kyc_verification_0",
+      "auth_policy_3",
+      "kyc_verification_3"
+    ]
+  },
+  {
+    "question_id": "q3",
+    "question": "What happens when a client exceeds the API rate limit?",
+    "answer": "Requests that exceed the limit receive HTTP status 429 Too Many Requests with a `Retry-After` header specifying how many seconds to wait before retrying. Clients should apply exponential backoff when retrying.",
+    "citations": [
+      "api_rate_limits.md"
+    ],
+    "supported": true,
+    "evidence": [
+      "Requests over the limit receive HTTP status 429 Too Many Requests.",
+      "The response includes a `Retry-After` header giving the number of seconds to wait before retrying."
+    ],
+    "reason": null,
+    "retrieved_doc_ids": [
+      "api_rate_limits.md"
+    ],
+    "retrieved_chunk_ids": [
+      "api_rate_limits_1",
+      "api_rate_limits_0",
+      "api_rate_limits_2",
+      "api_rate_limits_3"
+    ]
+  },
+  {
+    "question_id": "q4",
+    "question": "Which documents are accepted for KYC verification?",
+    "answer": "The accepted documents for KYC verification are a valid passport, a national ID card, or a driving licence.",
+    "citations": [
+      "kyc_verification.md"
+    ],
+    "supported": true,
+    "evidence": [
+      "Accepted documents are a valid passport, a national ID card or a driving licence."
+    ],
+    "reason": null,
+    "retrieved_doc_ids": [
+      "kyc_verification.md",
+      "withdrawals.md"
+    ],
+    "retrieved_chunk_ids": [
+      "kyc_verification_1",
+      "kyc_verification_0",
+      "withdrawals_0",
+      "kyc_verification_4"
+    ]
+  },
+  {
+    "question_id": "q5",
+    "question": "How long does a SEPA withdrawal take?",
+    "answer": "A SEPA transfer withdrawal takes 1 business day. However, withdrawals requested after 16:00 UTC are processed on the next business day.",
+    "citations": [
+      "withdrawals.md"
+    ],
+    "supported": true,
+    "evidence": [
+      "SEPA transfer: 1 business day.",
+      "Withdrawals requested after 16:00 UTC are processed on the next business day."
+    ],
+    "reason": null,
+    "retrieved_doc_ids": [
+      "kyc_verification.md",
+      "withdrawals.md"
+    ],
+    "retrieved_chunk_ids": [
+      "withdrawals_1",
+      "withdrawals_3",
+      "withdrawals_0",
+      "kyc_verification_2"
+    ]
+  },
+  {
+    "question_id": "q6",
+    "question": "How quickly must the status page be updated during a SEV1 incident?",
+    "answer": "For SEV1 incidents, the status page must be updated within 30 minutes of the incident being declared and then at least every hour until resolution.",
+    "citations": [
+      "incident_escalation.md"
+    ],
+    "supported": true,
+    "evidence": [
+      "For SEV1 incidents, the status page must be updated within 30 minutes of the incident being declared and then at least every hour until resolution."
+    ],
+    "reason": null,
+    "retrieved_doc_ids": [
+      "api_rate_limits.md",
+      "incident_escalation.md"
+    ],
+    "retrieved_chunk_ids": [
+      "incident_escalation_1",
+      "incident_escalation_0",
+      "incident_escalation_2",
+      "api_rate_limits_1"
+    ]
+  },
+  {
+    "question_id": "q7",
+    "question": "How long is an account locked after too many failed logins?",
+    "answer": "An account is locked for 30 minutes after 5 consecutive failed login attempts.",
+    "citations": [
+      "auth_policy.md"
+    ],
+    "supported": true,
+    "evidence": [
+      "After 5 consecutive failed login attempts, the account is locked for 30 minutes."
+    ],
+    "reason": null,
+    "retrieved_doc_ids": [
+      "auth_policy.md",
+      "kyc_verification.md"
+    ],
+    "retrieved_chunk_ids": [
+      "auth_policy_1",
+      "auth_policy_2",
+      "kyc_verification_4",
+      "kyc_verification_3"
+    ]
+  },
+  {
+    "question_id": "q8",
+    "question": "What fee is charged for withdrawals in cryptocurrency?",
+    "answer": "I can't answer that from the available documentation.",
+    "citations": [],
+    "supported": false,
+    "evidence": [],
+    "reason": "model_marked_unsupported",
+    "retrieved_doc_ids": [
+      "kyc_verification.md",
+      "withdrawals.md"
+    ],
+    "retrieved_chunk_ids": [
+      "withdrawals_0",
+      "withdrawals_2",
+      "kyc_verification_0",
+      "withdrawals_1"
+    ]
+  },
+  {
+    "question_id": "q9",
+    "question": "What are the exact rate limits for Enterprise tier API keys?",
+    "answer": "Enterprise tier API keys have custom limits agreed upon in the customer contract.",
+    "citations": [
+      "api_rate_limits.md"
+    ],
+    "supported": true,
+    "evidence": [
+      "Enterprise tier: custom limits agreed in the customer contract."
+    ],
+    "reason": null,
+    "retrieved_doc_ids": [
+      "api_rate_limits.md",
+      "incident_escalation.md"
+    ],
+    "retrieved_chunk_ids": [
+      "api_rate_limits_0",
+      "incident_escalation_0",
+      "api_rate_limits_1",
+      "api_rate_limits_2"
+    ]
+  },
+  {
+    "question_id": "q10",
+    "question": "What is the company's parental leave policy?",
+    "answer": "I can't answer that from the available documentation.",
+    "citations": [],
+    "supported": false,
+    "evidence": [],
+    "reason": "low_retrieval_score",
+    "retrieved_doc_ids": [
+      "api_rate_limits.md",
+      "auth_policy.md",
+      "incident_escalation.md",
+      "kyc_verification.md"
+    ],
+    "retrieved_chunk_ids": [
+      "incident_escalation_0",
+      "api_rate_limits_0",
+      "kyc_verification_0",
+      "auth_policy_4"
+    ]
+  }
+]

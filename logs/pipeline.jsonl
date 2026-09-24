@@ -1,0 +1,36 @@
+{"ts": "2026-09-24T07:04:02.384745+00:00", "event": "documents_loaded", "count": 5, "doc_ids": ["api_rate_limits.md", "auth_policy.md", "incident_escalation.md", "kyc_verification.md", "withdrawals.md"]}
+{"ts": "2026-09-24T07:04:02.385491+00:00", "event": "chunks_created", "count": 22}
+{"ts": "2026-09-24T07:04:03.461993+00:00", "event": "index_built", "model": "BAAI/bge-small-en-v1.5", "shape": [22, 384]}
+{"ts": "2026-09-24T07:04:03.467085+00:00", "event": "retrieval_executed", "question_id": "q1", "top_doc": "auth_policy.md", "top_score": 0.8308}
+{"ts": "2026-09-24T07:04:03.471658+00:00", "event": "retrieval_executed", "question_id": "q2", "top_doc": "auth_policy.md", "top_score": 0.6504}
+{"ts": "2026-09-24T07:04:03.476658+00:00", "event": "retrieval_executed", "question_id": "q3", "top_doc": "api_rate_limits.md", "top_score": 0.7625}
+{"ts": "2026-09-24T07:04:03.480777+00:00", "event": "retrieval_executed", "question_id": "q4", "top_doc": "kyc_verification.md", "top_score": 0.791}
+{"ts": "2026-09-24T07:04:03.485197+00:00", "event": "retrieval_executed", "question_id": "q5", "top_doc": "withdrawals.md", "top_score": 0.8557}
+{"ts": "2026-09-24T07:04:03.490351+00:00", "event": "retrieval_executed", "question_id": "q6", "top_doc": "incident_escalation.md", "top_score": 0.9227}
+{"ts": "2026-09-24T07:04:03.495292+00:00", "event": "retrieval_executed", "question_id": "q7", "top_doc": "auth_policy.md", "top_score": 0.892}
+{"ts": "2026-09-24T07:04:03.500301+00:00", "event": "retrieval_executed", "question_id": "q8", "top_doc": "withdrawals.md", "top_score": 0.7715}
+{"ts": "2026-09-24T07:04:03.505131+00:00", "event": "retrieval_executed", "question_id": "q9", "top_doc": "api_rate_limits.md", "top_score": 0.8718}
+{"ts": "2026-09-24T07:04:03.509281+00:00", "event": "retrieval_executed", "question_id": "q10", "top_doc": "incident_escalation.md", "top_score": 0.5276}
+{"ts": "2026-09-24T07:06:47.937378+00:00", "event": "answer_generated", "question_id": "q1", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:06:55.248628+00:00", "event": "answer_generated", "question_id": "q2", "supported": false, "reason": "model_marked_unsupported"}
+{"ts": "2026-09-24T07:07:07.828466+00:00", "event": "answer_generated", "question_id": "q3", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:07:19.349294+00:00", "event": "answer_generated", "question_id": "q4", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:08:22.521448+00:00", "event": "answer_generated", "question_id": "q5", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:08:59.721776+00:00", "event": "answer_generated", "question_id": "q6", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:09:14.555469+00:00", "event": "answer_generated", "question_id": "q7", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:09:59.296859+00:00", "event": "answer_generated", "question_id": "q8", "supported": false, "reason": "model_marked_unsupported"}
+{"ts": "2026-09-24T07:10:38.214445+00:00", "event": "answer_generated", "question_id": "q9", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:10:38.216997+00:00", "event": "answer_generated", "question_id": "q10", "supported": false, "reason": "low_retrieval_score"}
+{"ts": "2026-09-24T07:10:38.219059+00:00", "event": "validation_passed", "question_id": "q1", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:10:38.220763+00:00", "event": "validation_passed", "question_id": "q2", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:10:38.226632+00:00", "event": "validation_passed", "question_id": "q3", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:10:38.228739+00:00", "event": "validation_passed", "question_id": "q4", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:10:38.231235+00:00", "event": "validation_passed", "question_id": "q5", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:10:38.233298+00:00", "event": "validation_passed", "question_id": "q6", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:10:38.235204+00:00", "event": "validation_passed", "question_id": "q7", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:10:38.237332+00:00", "event": "validation_passed", "question_id": "q8", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:10:38.240645+00:00", "event": "validation_passed", "question_id": "q9", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:10:38.243131+00:00", "event": "validation_passed", "question_id": "q10", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:13:15.381912+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
+{"ts": "2026-09-24T07:14:37.788192+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
+{"ts": "2026-09-24T07:14:39.365770+00:00", "event": "cli_question_answered", "supported": false, "errors": []}

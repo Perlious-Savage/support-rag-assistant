@@ -1,0 +1,302 @@
+[
+  {
+    "question_id": "q1",
+    "question": "How many password reset attempts are allowed per hour?",
+    "retrieved_chunks": [
+      {
+        "doc_id": "auth_policy.md",
+        "chunk_id": "auth_policy_2",
+        "text": "## Password reset\nUsers can request up to 3 password reset emails per hour. Each reset link expires 15 minutes after it is sent and can be used only once. After a successful reset, all active sessions on other devices are signed out.",
+        "score": 0.8308
+      },
+      {
+        "doc_id": "auth_policy.md",
+        "chunk_id": "auth_policy_1",
+        "text": "## Failed login attempts\nAfter 5 consecutive failed login attempts, the account is locked for 30 minutes. A locked account can be unlocked early only by completing a password reset.",
+        "score": 0.7593
+      },
+      {
+        "doc_id": "auth_policy.md",
+        "chunk_id": "auth_policy_3",
+        "text": "## Password requirements\nPasswords must be at least 12 characters long and must not match any of the user's last 5 passwords.",
+        "score": 0.7583
+      },
+      {
+        "doc_id": "kyc_verification.md",
+        "chunk_id": "kyc_verification_3",
+        "text": "## Rejections and retries\nIf verification is rejected, the user may resubmit up to 3 times within 30 days. After 3 failed attempts, the case is escalated to the Compliance team and the user cannot resubmit until Compliance responds.",
+        "score": 0.6684
+      }
+    ]
+  },
+  {
+    "question_id": "q2",
+    "question": "Can support manually bypass identity verification for VIP users?",
+    "retrieved_chunks": [
+      {
+        "doc_id": "auth_policy.md",
+        "chunk_id": "auth_policy_0",
+        "text": "# Account Login and Password Reset Policy\n## Login\nUsers sign in with their registered email address and password. Multi-factor authentication (MFA) is mandatory for all accounts created after January 2024. Supported MFA methods are authenticator apps (TOTP) and hardware security keys. SMS codes are not supported as an MFA method.",
+        "score": 0.6504
+      },
+      {
+        "doc_id": "kyc_verification.md",
+        "chunk_id": "kyc_verification_0",
+        "text": "# KYC / Identity Verification Rules\n## When verification is required\nIdentity verification (KYC) must be completed before a user can withdraw funds or deposit more than 1,000 USD in total.",
+        "score": 0.6451
+      },
+      {
+        "doc_id": "auth_policy.md",
+        "chunk_id": "auth_policy_3",
+        "text": "## Password requirements\nPasswords must be at least 12 characters long and must not match any of the user's last 5 passwords.",
+        "score": 0.622
+      },
+      {
+        "doc_id": "kyc_verification.md",
+        "chunk_id": "kyc_verification_3",
+        "text": "## Rejections and retries\nIf verification is rejected, the user may resubmit up to 3 times within 30 days. After 3 failed attempts, the case is escalated to the Compliance team and the user cannot resubmit until Compliance responds.",
+        "score": 0.5989
+      }
+    ]
+  },
+  {
+    "question_id": "q3",
+    "question": "What happens when a client exceeds the API rate limit?",
+    "retrieved_chunks": [
+      {
+        "doc_id": "api_rate_limits.md",
+        "chunk_id": "api_rate_limits_1",
+        "text": "## Exceeding a limit\nRequests over the limit receive HTTP status 429 Too Many Requests. The response includes a `Retry-After` header giving the number of seconds to wait before retrying. Clients should use exponential backoff.",
+        "score": 0.7625
+      },
+      {
+        "doc_id": "api_rate_limits.md",
+        "chunk_id": "api_rate_limits_0",
+        "text": "# API Rate Limits\n## Default limits\nEvery API key is limited per plan tier:\n- Free tier: 60 requests per minute and 10,000 requests per day.\n- Pro tier: 600 requests per minute and 500,000 requests per day.\n- Enterprise tier: custom limits agreed in the customer contract.",
+        "score": 0.7524
+      },
+      {
+        "doc_id": "api_rate_limits.md",
+        "chunk_id": "api_rate_limits_2",
+        "text": "## Rate limit headers\nEvery response includes `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset` headers.",
+        "score": 0.6995
+      },
+      {
+        "doc_id": "api_rate_limits.md",
+        "chunk_id": "api_rate_limits_3",
+        "text": "## Limit increases\nPro customers can request a temporary limit increase by opening a ticket with the Platform team at least 5 business days before the expected traffic spike. Increases on the Free tier are not available.",
+        "score": 0.6713
+      }
+    ]
+  },
+  {
+    "question_id": "q4",
+    "question": "Which documents are accepted for KYC verification?",
+    "retrieved_chunks": [
+      {
+        "doc_id": "kyc_verification.md",
+        "chunk_id": "kyc_verification_1",
+        "text": "## Accepted documents\nAccepted documents are a valid passport, a national ID card or a driving licence. Documents must not be expired. A selfie liveness check is required together with the document upload.",
+        "score": 0.791
+      },
+      {
+        "doc_id": "kyc_verification.md",
+        "chunk_id": "kyc_verification_0",
+        "text": "# KYC / Identity Verification Rules\n## When verification is required\nIdentity verification (KYC) must be completed before a user can withdraw funds or deposit more than 1,000 USD in total.",
+        "score": 0.7738
+      },
+      {
+        "doc_id": "withdrawals.md",
+        "chunk_id": "withdrawals_0",
+        "text": "# Payment Processing and Withdrawal Timing\n## Eligibility\nOnly KYC-verified users can request a withdrawal. The minimum withdrawal amount is 20 USD.",
+        "score": 0.6924
+      },
+      {
+        "doc_id": "kyc_verification.md",
+        "chunk_id": "kyc_verification_4",
+        "text": "## Data retention\nVerification documents are retained for 5 years after the account is closed, as required by anti-money-laundering regulations.",
+        "score": 0.6441
+      }
+    ]
+  },
+  {
+    "question_id": "q5",
+    "question": "How long does a SEPA withdrawal take?",
+    "retrieved_chunks": [
+      {
+        "doc_id": "withdrawals.md",
+        "chunk_id": "withdrawals_1",
+        "text": "## Processing times\n- Bank transfer (ACH): 1 to 3 business days.\n- SEPA transfer: 1 business day.\n- Card refund: up to 5 business days.\nWithdrawals requested after 16:00 UTC are processed on the next business day.",
+        "score": 0.8557
+      },
+      {
+        "doc_id": "withdrawals.md",
+        "chunk_id": "withdrawals_3",
+        "text": "## Pending and failed withdrawals\nA withdrawal remains pending while fraud checks run. If a withdrawal fails, the funds are returned to the user's balance within 24 hours and the user is notified by email.",
+        "score": 0.7256
+      },
+      {
+        "doc_id": "withdrawals.md",
+        "chunk_id": "withdrawals_0",
+        "text": "# Payment Processing and Withdrawal Timing\n## Eligibility\nOnly KYC-verified users can request a withdrawal. The minimum withdrawal amount is 20 USD.",
+        "score": 0.6831
+      },
+      {
+        "doc_id": "kyc_verification.md",
+        "chunk_id": "kyc_verification_2",
+        "text": "## Review time\nAutomated checks usually complete within 10 minutes. Cases flagged for manual review are processed within 2 business days.",
+        "score": 0.6787
+      }
+    ]
+  },
+  {
+    "question_id": "q6",
+    "question": "How quickly must the status page be updated during a SEV1 incident?",
+    "retrieved_chunks": [
+      {
+        "doc_id": "incident_escalation.md",
+        "chunk_id": "incident_escalation_1",
+        "text": "## Communication\nFor SEV1 incidents, the status page must be updated within 30 minutes of the incident being declared and then at least every hour until resolution.",
+        "score": 0.9227
+      },
+      {
+        "doc_id": "incident_escalation.md",
+        "chunk_id": "incident_escalation_0",
+        "text": "# Incident Escalation Policy\n## Severity levels\n- SEV1: full outage or data breach affecting customers. Page the on-call engineer immediately and notify the Head of Engineering within 15 minutes.\n- SEV2: major feature degraded for many customers. The on-call engineer must acknowledge within 30 minutes.\n- SEV3: minor issue with a workaround available. Handled during business hours through the normal ticket queue.",
+        "score": 0.7861
+      },
+      {
+        "doc_id": "incident_escalation.md",
+        "chunk_id": "incident_escalation_2",
+        "text": "## Post-incident review\nA written post-incident review is required for every SEV1 and SEV2 incident within 5 business days of resolution.",
+        "score": 0.7725
+      },
+      {
+        "doc_id": "api_rate_limits.md",
+        "chunk_id": "api_rate_limits_1",
+        "text": "## Exceeding a limit\nRequests over the limit receive HTTP status 429 Too Many Requests. The response includes a `Retry-After` header giving the number of seconds to wait before retrying. Clients should use exponential backoff.",
+        "score": 0.6438
+      }
+    ]
+  },
+  {
+    "question_id": "q7",
+    "question": "How long is an account locked after too many failed logins?",
+    "retrieved_chunks": [
+      {
+        "doc_id": "auth_policy.md",
+        "chunk_id": "auth_policy_1",
+        "text": "## Failed login attempts\nAfter 5 consecutive failed login attempts, the account is locked for 30 minutes. A locked account can be unlocked early only by completing a password reset.",
+        "score": 0.892
+      },
+      {
+        "doc_id": "auth_policy.md",
+        "chunk_id": "auth_policy_2",
+        "text": "## Password reset\nUsers can request up to 3 password reset emails per hour. Each reset link expires 15 minutes after it is sent and can be used only once. After a successful reset, all active sessions on other devices are signed out.",
+        "score": 0.7113
+      },
+      {
+        "doc_id": "kyc_verification.md",
+        "chunk_id": "kyc_verification_4",
+        "text": "## Data retention\nVerification documents are retained for 5 years after the account is closed, as required by anti-money-laundering regulations.",
+        "score": 0.7061
+      },
+      {
+        "doc_id": "kyc_verification.md",
+        "chunk_id": "kyc_verification_3",
+        "text": "## Rejections and retries\nIf verification is rejected, the user may resubmit up to 3 times within 30 days. After 3 failed attempts, the case is escalated to the Compliance team and the user cannot resubmit until Compliance responds.",
+        "score": 0.6942
+      }
+    ]
+  },
+  {
+    "question_id": "q8",
+    "question": "What fee is charged for withdrawals in cryptocurrency?",
+    "retrieved_chunks": [
+      {
+        "doc_id": "withdrawals.md",
+        "chunk_id": "withdrawals_0",
+        "text": "# Payment Processing and Withdrawal Timing\n## Eligibility\nOnly KYC-verified users can request a withdrawal. The minimum withdrawal amount is 20 USD.",
+        "score": 0.7715
+      },
+      {
+        "doc_id": "withdrawals.md",
+        "chunk_id": "withdrawals_2",
+        "text": "## Daily limits\nVerified users can withdraw up to 10,000 USD per day. Larger withdrawals require approval from the Finance team.",
+        "score": 0.7501
+      },
+      {
+        "doc_id": "kyc_verification.md",
+        "chunk_id": "kyc_verification_0",
+        "text": "# KYC / Identity Verification Rules\n## When verification is required\nIdentity verification (KYC) must be completed before a user can withdraw funds or deposit more than 1,000 USD in total.",
+        "score": 0.6873
+      },
+      {
+        "doc_id": "withdrawals.md",
+        "chunk_id": "withdrawals_1",
+        "text": "## Processing times\n- Bank transfer (ACH): 1 to 3 business days.\n- SEPA transfer: 1 business day.\n- Card refund: up to 5 business days.\nWithdrawals requested after 16:00 UTC are processed on the next business day.",
+        "score": 0.6606
+      }
+    ]
+  },
+  {
+    "question_id": "q9",
+    "question": "What are the exact rate limits for Enterprise tier API keys?",
+    "retrieved_chunks": [
+      {
+        "doc_id": "api_rate_limits.md",
+        "chunk_id": "api_rate_limits_0",
+        "text": "# API Rate Limits\n## Default limits\nEvery API key is limited per plan tier:\n- Free tier: 60 requests per minute and 10,000 requests per day.\n- Pro tier: 600 requests per minute and 500,000 requests per day.\n- Enterprise tier: custom limits agreed in the customer contract.",
+        "score": 0.8718
+      },
+      {
+        "doc_id": "incident_escalation.md",
+        "chunk_id": "incident_escalation_0",
+        "text": "# Incident Escalation Policy\n## Severity levels\n- SEV1: full outage or data breach affecting customers. Page the on-call engineer immediately and notify the Head of Engineering within 15 minutes.\n- SEV2: major feature degraded for many customers. The on-call engineer must acknowledge within 30 minutes.\n- SEV3: minor issue with a workaround available. Handled during business hours through the normal ticket queue.",
+        "score": 0.6595
+      },
+      {
+        "doc_id": "api_rate_limits.md",
+        "chunk_id": "api_rate_limits_1",
+        "text": "## Exceeding a limit\nRequests over the limit receive HTTP status 429 Too Many Requests. The response includes a `Retry-After` header giving the number of seconds to wait before retrying. Clients should use exponential backoff.",
+        "score": 0.6593
+      },
+      {
+        "doc_id": "api_rate_limits.md",
+        "chunk_id": "api_rate_limits_2",
+        "text": "## Rate limit headers\nEvery response includes `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset` headers.",
+        "score": 0.6535
+      }
+    ]
+  },
+  {
+    "question_id": "q10",
+    "question": "What is the company's parental leave policy?",
+    "retrieved_chunks": [
+      {
+        "doc_id": "incident_escalation.md",
+        "chunk_id": "incident_escalation_0",
+        "text": "# Incident Escalation Policy\n## Severity levels\n- SEV1: full outage or data breach affecting customers. Page the on-call engineer immediately and notify the Head of Engineering within 15 minutes.\n- SEV2: major feature degraded for many customers. The on-call engineer must acknowledge within 30 minutes.\n- SEV3: minor issue with a workaround available. Handled during business hours through the normal ticket queue.",
+        "score": 0.5276
+      },
+      {
+        "doc_id": "api_rate_limits.md",
+        "chunk_id": "api_rate_limits_0",
+        "text": "# API Rate Limits\n## Default limits\nEvery API key is limited per plan tier:\n- Free tier: 60 requests per minute and 10,000 requests per day.\n- Pro tier: 600 requests per minute and 500,000 requests per day.\n- Enterprise tier: custom limits agreed in the customer contract.",
+        "score": 0.5167
+      },
+      {
+        "doc_id": "kyc_verification.md",
+        "chunk_id": "kyc_verification_0",
+        "text": "# KYC / Identity Verification Rules\n## When verification is required\nIdentity verification (KYC) must be completed before a user can withdraw funds or deposit more than 1,000 USD in total.",
+        "score": 0.506
+      },
+      {
+        "doc_id": "auth_policy.md",
+        "chunk_id": "auth_policy_4",
+        "text": "## Sessions\nWeb sessions expire after 8 hours of inactivity. Mobile app sessions expire after 30 days of inactivity.",
+        "score": 0.5018
+      }
+    ]
+  }
+]
