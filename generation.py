@@ -36,22 +36,29 @@ def _normalize_llm_output(data: dict) -> dict:
 
 
 def _words(text: str) -> set[str]:
-    """Lowercased content words used for extractive overlap scoring."""
-    return {w for w in re.findall(r"[a-z0-9]+", text.lower()) if w not in STOPWORDS}
+    """Lowercased content words (naive plural stripping) used for extractive overlap scoring."""
+    words = re.findall(r"[a-z0-9]+", text.lower())
+    return {w[:-1] if len(w) > 3 and w.endswith("s") else w for w in words if w not in STOPWORDS}
 
 
 def extractive_answer(question: str, chunks: list[dict]) -> dict:
-    """Offline fallback: return the retrieved sentence with the most word overlap with the question."""
+    """Offline fallback: return the retrieved sentence with the most word overlap with the question.
+
+    A sentence also "contains" its doc name and section headings, so "what is the auth policy?"
+    matches sentences in auth_policy.md even though "auth" only appears in the filename.
+    """
     q = _words(question)
     best, best_overlap = None, 0
     for c in chunks:
         if c["score"] < MIN_SCORE:
             continue
+        headings = " ".join(l for l in c["text"].splitlines() if l.lstrip().startswith("#"))
+        context = _words(Path(c["doc_id"]).stem.replace("_", " ") + " " + headings)
         for sent in re.split(r"(?<=[.!?])\s+|\n", c["text"]):
             sent = sent.strip().lstrip("-* ").strip()
             if not sent or sent.startswith("#"):
                 continue
-            overlap = len(q & _words(sent))
+            overlap = len(q & (_words(sent) | context))
             if overlap > best_overlap:  # strict > keeps the higher-ranked chunk on ties
                 best, best_overlap = (sent, c["doc_id"]), overlap
     # ponytail: word overlap can't tell "answers the question" from "mentions the topic"; LLM mode handles that
@@ -64,10 +71,14 @@ def generate_answer(question: str, chunks: list[dict], *, question_id: str | Non
                     extractive: bool = False) -> dict:
     """Answer from retrieved chunks only. Refuses weak retrievals; uses extractive mode if no LLM is configured."""
     if not chunks or chunks[0]["score"] < MIN_SCORE:
-        return refusal("low_retrieval_score")
+        return {**refusal("low_retrieval_score"), "mode": "threshold"}
     if extractive or not llm.available():
-        return extractive_answer(question, chunks)
-    data = llm.complete_json(build_prompt(question, chunks), stage="generate", item_id=question_id,
-                             input_artifacts=["retrieval_results.json", "prompts/answer.txt"],
-                             output_artifact="answers.json")
-    return _normalize_llm_output(data)
+        return {**extractive_answer(question, chunks), "mode": "extractive"}
+    try:
+        data = llm.complete_json(build_prompt(question, chunks), stage="generate", item_id=question_id,
+                                 input_artifacts=["retrieval_results.json", "prompts/answer.txt"],
+                                 output_artifact="answers.json")
+    except (RuntimeError, ValueError) as e:  # every LLM tier failed (e.g. quota) or unparseable twice
+        print(f"WARNING: LLM unavailable, using extractive fallback: {str(e)[:200]}")
+        return {**extractive_answer(question, chunks), "mode": "extractive_fallback"}
+    return {**_normalize_llm_output(data), "mode": "llm"}

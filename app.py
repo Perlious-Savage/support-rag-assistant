@@ -27,13 +27,15 @@ def ask(question: str, docs_dir: Path = ROOT / "docs", top_k: int = 4, extractiv
     """Retrieve -> generate -> validate for one question; returns answer, citations, supported, sources."""
     chunks, index = load_corpus(Path(docs_dir).resolve())
     hits = retrieve(question, chunks, index, top_k)
-    answer, report = enforce(generate_answer(question, hits, question_id="cli", extractive=extractive), hits)
+    raw = generate_answer(question, hits, question_id="cli", extractive=extractive)
+    answer, report = enforce(raw, hits)
     log_event("cli_question_answered", supported=answer["supported"], errors=report["errors"])
     return {
         "question": question,
         "answer": answer["answer"],
         "citations": answer["citations"],
         "supported": answer["supported"],
+        "mode": raw.get("mode"),  # llm | extractive | extractive_fallback | threshold
         "sources": [{"doc_id": h["doc_id"], "chunk_id": h["chunk_id"], "score": h["score"]} for h in hits],
         "validation": report,
     }

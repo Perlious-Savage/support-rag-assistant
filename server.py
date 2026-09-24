@@ -31,6 +31,7 @@ class AskResponse(BaseModel):
     answer: str
     citations: list[str]
     supported: bool
+    mode: str | None = None
     sources: list[Source]
     validation: dict
 
@@ -102,6 +103,7 @@ document.getElementById('f').onsubmit = async e => {
     const v = d.validation;
     out.innerHTML = `<div class="card">
       <span class="badge ${d.supported ? 'yes' : 'no'}">${d.supported ? 'Supported' : 'Not supported'}</span>
+      <span class="muted">&nbsp;answered by: <code>${esc(d.mode || '')}</code></span>
       <div class="answer">${esc(d.answer)}</div>
       <div class="muted">Citations: ${d.citations.length ? d.citations.map(c => `<code>${esc(c)}</code>`).join(' ') : 'none'}</div>
       <div class="muted" style="margin-top:10px">Retrieved sources:</div>

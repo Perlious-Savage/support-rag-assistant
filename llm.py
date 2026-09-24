@@ -23,18 +23,27 @@ RETRYABLE = {429, 500, 502, 503, 504}
 MODELS_USED: set[str] = set()
 
 
+TIERS = ("LLM", "FALLBACK", "LOCAL")  # primary -> fallback -> local (e.g. Ollama)
+
+
 def _targets() -> list[dict]:
-    """Return configured endpoints in priority order (primary, then fallback)."""
+    """Return configured endpoints in priority order (primary, fallback, local).
+
+    LOCAL_* is any OpenAI-compatible local server (Ollama, LM Studio, llama.cpp) and needs no API key.
+    """
     out = []
-    for prefix in ("LLM", "FALLBACK"):
-        key, model = os.getenv(f"{prefix}_API_KEY"), os.getenv(f"{prefix}_MODEL")
-        if key and model:
+    for prefix in TIERS:
+        base_url, model = os.getenv(f"{prefix}_BASE_URL") or None, os.getenv(f"{prefix}_MODEL")
+        key = os.getenv(f"{prefix}_API_KEY") or ("local" if prefix == "LOCAL" else None)
+        if key and model and (prefix != "LOCAL" or base_url):
             out.append({
-                "provider": os.getenv(f"{prefix}_PROVIDER", "openai"),
-                "base_url": os.getenv(f"{prefix}_BASE_URL") or None,
+                "provider": os.getenv(f"{prefix}_PROVIDER", "local" if prefix == "LOCAL" else "openai"),
+                "base_url": base_url,
                 "api_key": key,
                 "model": model,
-                "fallback": prefix == "FALLBACK",
+                "tier": prefix.lower(),
+                "fallback": prefix != "LLM",
+                "timeout": 180 if prefix == "LOCAL" else 60,  # CPU inference is slow
             })
     return out
 
@@ -46,7 +55,7 @@ def available() -> bool:
 
 def configured_models() -> dict:
     """Model names (never keys) for the run manifest."""
-    return {("fallback" if t["fallback"] else "primary"): f'{t["provider"]}/{t["model"]}' for t in _targets()}
+    return {t["tier"]: f'{t["provider"]}/{t["model"]}' for t in _targets()}
 
 
 def complete(prompt: str, *, stage: str, item_id: str | None, input_artifacts: list[str],
@@ -69,7 +78,7 @@ def complete(prompt: str, *, stage: str, item_id: str | None, input_artifacts: l
 
     last_error = None
     for target in _targets():
-        client = OpenAI(api_key=target["api_key"], base_url=target["base_url"], timeout=60, max_retries=0)
+        client = OpenAI(api_key=target["api_key"], base_url=target["base_url"], timeout=target["timeout"], max_retries=0)
         for attempt in range(1, len(BACKOFF_SECONDS) + 2):
             try:
                 resp = client.chat.completions.create(
@@ -80,7 +89,8 @@ def complete(prompt: str, *, stage: str, item_id: str | None, input_artifacts: l
             except Exception as e:  # network / API errors: retry retryable ones, else next target
                 last_error = e
                 status = getattr(e, "status_code", None)
-                if (status in RETRYABLE or status is None) and attempt <= len(BACKOFF_SECONDS):
+                daily_quota_gone = status == 429 and "PerDay" in str(e)  # retrying won't help today
+                if (status in RETRYABLE or status is None) and not daily_quota_gone and attempt <= len(BACKOFF_SECONDS):
                     time.sleep(BACKOFF_SECONDS[attempt - 1])
                     continue
                 break

@@ -98,7 +98,7 @@ def run(docs_dir: Path, questions_path: Path, out_dir: Path, top_k: int, extract
             results.append({"question_id": q["id"], **report, "expected_behavior": expected,
                             "final_supported": final["supported"],
                             "behavior_match": None if expected is None else (expected == "answerable") == final["supported"]})
-            answers.append({"question_id": q["id"], "question": q["question"], **final,
+            answers.append({"question_id": q["id"], "question": q["question"], **final, "mode": ans.get("mode"),
                             "retrieved_doc_ids": sorted({c["doc_id"] for c in r["retrieved_chunks"]}),
                             "retrieved_chunk_ids": [c["chunk_id"] for c in r["retrieved_chunks"]]})
             log_event("validation_" + ("passed" if report["passed"] else "failed"), question_id=q["id"],
