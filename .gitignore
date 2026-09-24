@@ -4,3 +4,5 @@ __pycache__/
 .venv/
 venv/
 HANDOVER.md
+api.txt
+.env.bak

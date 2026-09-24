@@ -11,6 +11,7 @@
       "Users can request up to 3 password reset emails per hour."
     ],
     "reason": null,
+    "mode": "llm",
     "retrieved_doc_ids": [
       "auth_policy.md",
       "kyc_verification.md"
@@ -30,6 +31,7 @@
     "supported": false,
     "evidence": [],
     "reason": "model_marked_unsupported",
+    "mode": "llm",
     "retrieved_doc_ids": [
       "auth_policy.md",
       "kyc_verification.md"
@@ -54,6 +56,7 @@
       "The response includes a `Retry-After` header giving the number of seconds to wait before retrying."
     ],
     "reason": null,
+    "mode": "llm",
     "retrieved_doc_ids": [
       "api_rate_limits.md"
     ],
@@ -76,6 +79,7 @@
       "Accepted documents are a valid passport, a national ID card or a driving licence."
     ],
     "reason": null,
+    "mode": "llm",
     "retrieved_doc_ids": [
       "kyc_verification.md",
       "withdrawals.md"
@@ -100,6 +104,7 @@
       "Withdrawals requested after 16:00 UTC are processed on the next business day."
     ],
     "reason": null,
+    "mode": "llm",
     "retrieved_doc_ids": [
       "kyc_verification.md",
       "withdrawals.md"
@@ -123,6 +128,7 @@
       "For SEV1 incidents, the status page must be updated within 30 minutes of the incident being declared and then at least every hour until resolution."
     ],
     "reason": null,
+    "mode": "llm",
     "retrieved_doc_ids": [
       "api_rate_limits.md",
       "incident_escalation.md"
@@ -146,6 +152,7 @@
       "After 5 consecutive failed login attempts, the account is locked for 30 minutes."
     ],
     "reason": null,
+    "mode": "llm",
     "retrieved_doc_ids": [
       "auth_policy.md",
       "kyc_verification.md"
@@ -165,6 +172,7 @@
     "supported": false,
     "evidence": [],
     "reason": "model_marked_unsupported",
+    "mode": "llm",
     "retrieved_doc_ids": [
       "kyc_verification.md",
       "withdrawals.md"
@@ -188,6 +196,7 @@
       "Enterprise tier: custom limits agreed in the customer contract."
     ],
     "reason": null,
+    "mode": "llm",
     "retrieved_doc_ids": [
       "api_rate_limits.md",
       "incident_escalation.md"
@@ -207,6 +216,7 @@
     "supported": false,
     "evidence": [],
     "reason": "low_retrieval_score",
+    "mode": "threshold",
     "retrieved_doc_ids": [
       "api_rate_limits.md",
       "auth_policy.md",

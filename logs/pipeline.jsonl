@@ -1,61 +1,34 @@
-{"ts": "2026-09-24T07:16:45.888153+00:00", "event": "documents_loaded", "count": 5, "doc_ids": ["api_rate_limits.md", "auth_policy.md", "incident_escalation.md", "kyc_verification.md", "withdrawals.md"]}
-{"ts": "2026-09-24T07:16:45.891114+00:00", "event": "chunks_created", "count": 22}
-{"ts": "2026-09-24T07:16:47.006943+00:00", "event": "index_built", "model": "BAAI/bge-small-en-v1.5", "shape": [22, 384]}
-{"ts": "2026-09-24T07:16:47.013063+00:00", "event": "retrieval_executed", "question_id": "q1", "top_doc": "auth_policy.md", "top_score": 0.8308}
-{"ts": "2026-09-24T07:16:47.027357+00:00", "event": "retrieval_executed", "question_id": "q2", "top_doc": "auth_policy.md", "top_score": 0.6504}
-{"ts": "2026-09-24T07:16:47.035864+00:00", "event": "retrieval_executed", "question_id": "q3", "top_doc": "api_rate_limits.md", "top_score": 0.7625}
-{"ts": "2026-09-24T07:16:47.043185+00:00", "event": "retrieval_executed", "question_id": "q4", "top_doc": "kyc_verification.md", "top_score": 0.791}
-{"ts": "2026-09-24T07:16:47.053098+00:00", "event": "retrieval_executed", "question_id": "q5", "top_doc": "withdrawals.md", "top_score": 0.8557}
-{"ts": "2026-09-24T07:16:47.059733+00:00", "event": "retrieval_executed", "question_id": "q6", "top_doc": "incident_escalation.md", "top_score": 0.9227}
-{"ts": "2026-09-24T07:16:47.065733+00:00", "event": "retrieval_executed", "question_id": "q7", "top_doc": "auth_policy.md", "top_score": 0.892}
-{"ts": "2026-09-24T07:16:47.080218+00:00", "event": "retrieval_executed", "question_id": "q8", "top_doc": "withdrawals.md", "top_score": 0.7715}
-{"ts": "2026-09-24T07:16:47.089499+00:00", "event": "retrieval_executed", "question_id": "q9", "top_doc": "api_rate_limits.md", "top_score": 0.8718}
-{"ts": "2026-09-24T07:16:47.097142+00:00", "event": "retrieval_executed", "question_id": "q10", "top_doc": "incident_escalation.md", "top_score": 0.5276}
-{"ts": "2026-09-24T07:16:48.504501+00:00", "event": "answer_generated", "question_id": "q1", "supported": true, "reason": null}
-{"ts": "2026-09-24T07:16:48.522090+00:00", "event": "answer_generated", "question_id": "q2", "supported": false, "reason": "model_marked_unsupported"}
-{"ts": "2026-09-24T07:16:48.539120+00:00", "event": "answer_generated", "question_id": "q3", "supported": true, "reason": null}
-{"ts": "2026-09-24T07:16:48.556508+00:00", "event": "answer_generated", "question_id": "q4", "supported": true, "reason": null}
-{"ts": "2026-09-24T07:16:48.574875+00:00", "event": "answer_generated", "question_id": "q5", "supported": true, "reason": null}
-{"ts": "2026-09-24T07:16:48.592127+00:00", "event": "answer_generated", "question_id": "q6", "supported": true, "reason": null}
-{"ts": "2026-09-24T07:16:48.606678+00:00", "event": "answer_generated", "question_id": "q7", "supported": true, "reason": null}
-{"ts": "2026-09-24T07:16:48.620716+00:00", "event": "answer_generated", "question_id": "q8", "supported": false, "reason": "model_marked_unsupported"}
-{"ts": "2026-09-24T07:16:48.635713+00:00", "event": "answer_generated", "question_id": "q9", "supported": true, "reason": null}
-{"ts": "2026-09-24T07:16:48.636213+00:00", "event": "answer_generated", "question_id": "q10", "supported": false, "reason": "low_retrieval_score"}
-{"ts": "2026-09-24T07:16:48.637459+00:00", "event": "validation_passed", "question_id": "q1", "errors": [], "downgraded": false}
-{"ts": "2026-09-24T07:16:48.638563+00:00", "event": "validation_passed", "question_id": "q2", "errors": [], "downgraded": false}
-{"ts": "2026-09-24T07:16:48.639043+00:00", "event": "validation_passed", "question_id": "q3", "errors": [], "downgraded": false}
-{"ts": "2026-09-24T07:16:48.639422+00:00", "event": "validation_passed", "question_id": "q4", "errors": [], "downgraded": false}
-{"ts": "2026-09-24T07:16:48.639774+00:00", "event": "validation_passed", "question_id": "q5", "errors": [], "downgraded": false}
-{"ts": "2026-09-24T07:16:48.640118+00:00", "event": "validation_passed", "question_id": "q6", "errors": [], "downgraded": false}
-{"ts": "2026-09-24T07:16:48.640452+00:00", "event": "validation_passed", "question_id": "q7", "errors": [], "downgraded": false}
-{"ts": "2026-09-24T07:16:48.640827+00:00", "event": "validation_passed", "question_id": "q8", "errors": [], "downgraded": false}
-{"ts": "2026-09-24T07:16:48.641197+00:00", "event": "validation_passed", "question_id": "q9", "errors": [], "downgraded": false}
-{"ts": "2026-09-24T07:16:48.641510+00:00", "event": "validation_passed", "question_id": "q10", "errors": [], "downgraded": false}
-{"ts": "2026-09-24T07:20:19.441875+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:21:56.965535+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:22:06.960323+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:22:22.076821+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:25:06.597442+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:27:27.691063+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:29:08.988268+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:29:10.461811+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:29:14.334787+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:30:19.157726+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:31:24.272665+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:34:54.527178+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:35:26.016565+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:35:27.802117+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:35:27.807935+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:35:27.813768+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:35:27.818993+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:35:27.824287+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:35:27.830700+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:35:27.836980+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:35:27.842660+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:35:27.850867+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:35:27.856251+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
-{"ts": "2026-09-24T07:35:27.861322+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:35:27.867507+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:35:27.873185+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:35:51.773104+00:00", "event": "cli_question_answered", "supported": true, "errors": []}
-{"ts": "2026-09-24T07:36:06.039268+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
+{"ts": "2026-09-24T07:41:38.670212+00:00", "event": "documents_loaded", "count": 5, "doc_ids": ["api_rate_limits.md", "auth_policy.md", "incident_escalation.md", "kyc_verification.md", "withdrawals.md"]}
+{"ts": "2026-09-24T07:41:38.671128+00:00", "event": "chunks_created", "count": 22}
+{"ts": "2026-09-24T07:41:39.786469+00:00", "event": "index_built", "model": "BAAI/bge-small-en-v1.5", "shape": [22, 384]}
+{"ts": "2026-09-24T07:41:39.792761+00:00", "event": "retrieval_executed", "question_id": "q1", "top_doc": "auth_policy.md", "top_score": 0.8308}
+{"ts": "2026-09-24T07:41:39.797809+00:00", "event": "retrieval_executed", "question_id": "q2", "top_doc": "auth_policy.md", "top_score": 0.6504}
+{"ts": "2026-09-24T07:41:39.804292+00:00", "event": "retrieval_executed", "question_id": "q3", "top_doc": "api_rate_limits.md", "top_score": 0.7625}
+{"ts": "2026-09-24T07:41:39.809065+00:00", "event": "retrieval_executed", "question_id": "q4", "top_doc": "kyc_verification.md", "top_score": 0.791}
+{"ts": "2026-09-24T07:41:39.813010+00:00", "event": "retrieval_executed", "question_id": "q5", "top_doc": "withdrawals.md", "top_score": 0.8557}
+{"ts": "2026-09-24T07:41:39.818849+00:00", "event": "retrieval_executed", "question_id": "q6", "top_doc": "incident_escalation.md", "top_score": 0.9227}
+{"ts": "2026-09-24T07:41:39.823929+00:00", "event": "retrieval_executed", "question_id": "q7", "top_doc": "auth_policy.md", "top_score": 0.892}
+{"ts": "2026-09-24T07:41:39.829462+00:00", "event": "retrieval_executed", "question_id": "q8", "top_doc": "withdrawals.md", "top_score": 0.7715}
+{"ts": "2026-09-24T07:41:39.835498+00:00", "event": "retrieval_executed", "question_id": "q9", "top_doc": "api_rate_limits.md", "top_score": 0.8718}
+{"ts": "2026-09-24T07:41:39.841080+00:00", "event": "retrieval_executed", "question_id": "q10", "top_doc": "incident_escalation.md", "top_score": 0.5276}
+{"ts": "2026-09-24T07:41:41.206620+00:00", "event": "answer_generated", "question_id": "q1", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:41:41.208825+00:00", "event": "answer_generated", "question_id": "q2", "supported": false, "reason": "model_marked_unsupported"}
+{"ts": "2026-09-24T07:41:41.210292+00:00", "event": "answer_generated", "question_id": "q3", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:41:41.211397+00:00", "event": "answer_generated", "question_id": "q4", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:41:41.212459+00:00", "event": "answer_generated", "question_id": "q5", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:41:41.213726+00:00", "event": "answer_generated", "question_id": "q6", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:41:41.214761+00:00", "event": "answer_generated", "question_id": "q7", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:41:41.215889+00:00", "event": "answer_generated", "question_id": "q8", "supported": false, "reason": "model_marked_unsupported"}
+{"ts": "2026-09-24T07:41:41.216845+00:00", "event": "answer_generated", "question_id": "q9", "supported": true, "reason": null}
+{"ts": "2026-09-24T07:41:41.217246+00:00", "event": "answer_generated", "question_id": "q10", "supported": false, "reason": "low_retrieval_score"}
+{"ts": "2026-09-24T07:41:41.217717+00:00", "event": "validation_passed", "question_id": "q1", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:41:41.218065+00:00", "event": "validation_passed", "question_id": "q2", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:41:41.218425+00:00", "event": "validation_passed", "question_id": "q3", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:41:41.218745+00:00", "event": "validation_passed", "question_id": "q4", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:41:41.219082+00:00", "event": "validation_passed", "question_id": "q5", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:41:41.219447+00:00", "event": "validation_passed", "question_id": "q6", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:41:41.219774+00:00", "event": "validation_passed", "question_id": "q7", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:41:41.220099+00:00", "event": "validation_passed", "question_id": "q8", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:41:41.220435+00:00", "event": "validation_passed", "question_id": "q9", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:41:41.220751+00:00", "event": "validation_passed", "question_id": "q10", "errors": [], "downgraded": false}
+{"ts": "2026-09-24T07:41:44.424577+00:00", "event": "cli_question_answered", "supported": false, "errors": []}
