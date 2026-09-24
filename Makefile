@@ -12,3 +12,6 @@ test:
 
 ask:
 	python app.py --question "$(Q)"
+
+serve:
+	python server.py

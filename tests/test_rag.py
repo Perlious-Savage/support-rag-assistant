@@ -78,3 +78,15 @@ def test_valid_grounded_answer_passes(corpus):
     _, report = enforce({"answer": "1 business day.", "citations": ["withdrawals.md"], "supported": True,
                          "evidence": ["SEPA transfer: 1 business day."]}, hits)
     assert report["passed"]
+
+
+def test_api_ask_endpoint():
+    from fastapi.testclient import TestClient
+    from server import app
+    client = TestClient(app)
+    assert client.get("/").status_code == 200
+    r = client.post("/ask", json={"question": "What is the company's parental leave policy?", "extractive": True})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["supported"] is False and body["citations"] == [] and body["sources"]
+    assert client.post("/ask", json={"question": "   "}).status_code == 422

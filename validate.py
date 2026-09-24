@@ -110,7 +110,8 @@ def main() -> int:
         check("llm_calls.jsonl: every call has required fields", lines and all(fields <= set(l) for l in lines))
         n_refused_early = sum(a.get("reason") == "low_retrieval_score" for a in answers)
         check("llm_calls.jsonl: one call per question (except low-score refusals)",
-              {l["question_id"] for l in lines} == {a["question_id"] for a in answers if a.get("reason") != "low_retrieval_score"},
+              {l["question_id"] for l in lines if l["question_id"] in qids}  # ignore CLI/API calls logged since
+              == {a["question_id"] for a in answers if a.get("reason") != "low_retrieval_score"},
               f"{len(lines)} calls, {n_refused_early} refused before LLM")
     return summarize()
 

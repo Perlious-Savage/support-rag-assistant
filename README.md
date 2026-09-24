@@ -8,7 +8,17 @@ python pipeline.py          # or: make run
 python validate.py          # or: make validate  -> PASS/FAIL per requirement
 python -m pytest -q         # or: make test
 python app.py --question "How long does a SEPA withdrawal take?"
+python server.py            # or: make serve  -> web UI + API at http://127.0.0.1:8000
 ```
+
+## Interfaces
+Both return `answer`, `citations`, `supported` and `sources` (retrieved `doc_id`/`chunk_id`/`score`), plus the support-check `validation` result.
+- **Web UI:** open http://127.0.0.1:8000, type a question, and click Ask. Tick "Extractive mode" to skip the LLM.
+- **HTTP API:** `POST /ask` with `{"question": "...", "top_k": 4, "extractive": false}`. Interactive docs are at http://127.0.0.1:8000/docs.
+  ```bash
+  curl -X POST http://127.0.0.1:8000/ask -H "Content-Type: application/json" -d '{"question":"How long do card refunds take?"}'
+  ```
+- **CLI:** `python app.py --question "..." [--extractive] [--top-k N] [--docs DIR]`.
 No API key? `python pipeline.py --extractive` / `python app.py -q "..." --extractive` run fully offline.
 
 ## Setup
@@ -35,10 +45,11 @@ The stage order is enforced in `pipeline.py`, and each stage's timestamps are re
 | `llm.py` | Replaceable LLM client: primary → fallback model, backoff on 429/5xx, disk cache (`cache/`), call log |
 | `support_check.py` | Deterministic citation/support rules; fail-closed downgrade to refusal |
 | `pipeline.py` | Batch run over `questions.json`, writes all artifacts |
-| `app.py` | CLI for one new question |
+| `app.py` | CLI for one new question; `ask()` shared with the server |
+| `server.py` | FastAPI: `POST /ask` + a one-page web UI at `/` |
 | `validate.py` | Checks every artifact against the spec |
 | `obs.py` | Structured JSON-lines logging (`logs/pipeline.jsonl`) |
-| `tests/test_rag.py` | Chunk metadata, retrieval doc ids, refusal, support-check rules |
+| `tests/test_rag.py` | Chunk metadata, retrieval doc ids, refusal, support-check rules, `/ask` API |
 
 Artifacts: `retrieval_results.json`, `answers.json`, `validation_report.json`, `run_manifest.json` (stage timings, sha256 of inputs, models), `llm_calls.jsonl` (one line per LLM call: stage, question_id, model, prompt_hash, attempts, fallback_used), `logs/pipeline.jsonl`.
 
@@ -71,6 +82,7 @@ Off-topic questions are the most common way a RAG bot makes things up: the retri
 - **Extractive fallback is crude.** It picks the sentence with the most question-word overlap, with no stemming. It refuses when overlap is weak (safe), but it can also "answer" with a sentence that only mentions the topic. Use LLM mode for real answers.
 - **The evidence check proves the quotes exist, not that they imply the answer.** A model could quote real text and still draw a wrong conclusion from it. This check catches invented quotes and citations, not bad reasoning.
 - **MIN_SCORE is calibrated on this corpus.** A different embedding model or corpus needs a new threshold. It can be set with the `MIN_SCORE` environment variable.
+- **The server caches the index at startup**, so restart it after editing `docs/`.
 - **The index is in memory and rebuilt every run.** That's fine for tens of docs. For thousands, persist the vectors (e.g. FAISS) and add BM25 for exact-term queries such as error codes.
 - **The partly-answerable policy is binary.** The prompt forbids partial answers, but the model may still answer the documented part of a question (see q9).
 - **Free-tier quota.** The client backs off (2/4/8/16 s) and then switches to the fallback model. Responses are cached by prompt hash, so reruns are instant and cost nothing.

@@ -5,6 +5,7 @@ Usage: python app.py --question "How long does a SEPA withdrawal take?" [--extra
 import argparse
 import json
 import sys
+from functools import lru_cache
 from pathlib import Path
 
 from generation import generate_answer
@@ -15,10 +16,17 @@ from support_check import enforce
 ROOT = Path(__file__).resolve().parent
 
 
+@lru_cache(maxsize=4)
+def load_corpus(docs_dir: Path) -> tuple:
+    """Load, chunk and index docs once per folder (the server reuses it; restart to pick up doc edits)."""
+    chunks = chunk_documents(load_documents(docs_dir))
+    return chunks, build_index(chunks)
+
+
 def ask(question: str, docs_dir: Path = ROOT / "docs", top_k: int = 4, extractive: bool = False) -> dict:
     """Retrieve -> generate -> validate for one question; returns answer, citations, supported, sources."""
-    chunks = chunk_documents(load_documents(docs_dir))
-    hits = retrieve(question, chunks, build_index(chunks), top_k)
+    chunks, index = load_corpus(Path(docs_dir).resolve())
+    hits = retrieve(question, chunks, index, top_k)
     answer, report = enforce(generate_answer(question, hits, question_id="cli", extractive=extractive), hits)
     log_event("cli_question_answered", supported=answer["supported"], errors=report["errors"])
     return {

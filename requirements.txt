@@ -3,3 +3,5 @@ python-dotenv>=1.0
 fastembed>=0.3
 numpy>=1.26
 pytest>=8.0
+fastapi>=0.110
+uvicorn>=0.29
